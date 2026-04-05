@@ -49,13 +49,13 @@ worlds:
 
 ## Build
 
-Requires Java 21+.
+Requires Java 25+.
 
 ```bash
 ./gradlew build
 ```
 
-Jar will be in `build/libs/AntiDupingMechanics-1.1.0.jar`.
+Jar will be in `build/libs/AntiDupingMechanics-1.2.0.jar`.
 
 ## Notes
 
