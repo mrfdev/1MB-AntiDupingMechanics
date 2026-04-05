@@ -45,25 +45,19 @@ public final class AntiDupingListener implements Listener {
 
     public void reloadFromConfig() {
         var c = plugin.getConfig();
-
         debugEnabled = c.getBoolean("debug.enabled", false);
         debugToConsole = c.getBoolean("debug.log_to_console", true);
         msgPrefix = color(c.getString("messages.prefix", "&8[&6AntiDuping&8] &r"));
-
         perWorld.clear();
-
         ConfigurationSection worlds = c.getConfigurationSection("worlds");
         ConfigurationSection def = worlds != null ? worlds.getConfigurationSection("__default__") : null;
         defaultSettings = WorldSettings.fromConfig(def, new WorldSettings()); // baseline defaults if missing
-
         if (worlds != null) {
             for (String key : worlds.getKeys(false)) {
                 if (key == null) continue;
                 if (key.equalsIgnoreCase("__default__")) continue;
-
                 ConfigurationSection worldSec = worlds.getConfigurationSection(key);
                 if (worldSec == null) continue;
-
                 // merge: start from defaultSettings, then override
                 WorldSettings ws = defaultSettings.copy();
                 ws.applyOverrides(worldSec);
@@ -147,10 +141,8 @@ public final class AntiDupingListener implements Listener {
     public void onInteractEntity(@NonNull PlayerInteractEntityEvent event) {
         Player player = event.getPlayer();
         if (bypass(player)) return;
-
         WorldSettings ws = settingsForWorld(player.getWorld().getName());
         Entity clicked = event.getRightClicked();
-
         if (ws.donkeys.enabled && ws.donkeys.blockAttachChest) {
             if (clicked instanceof ChestedHorse chestedHorse) {
                 ItemStack inHand = player.getInventory().getItem(event.getHand());
@@ -182,13 +174,10 @@ public final class AntiDupingListener implements Listener {
     public void onInventoryClick(@NonNull InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player player)) return;
         if (bypass(player)) return;
-
         WorldSettings ws = settingsForWorld(player.getWorld().getName());
         if (!ws.bundles.enabled || !ws.bundles.blockInsertItems) return;
-
         ItemStack current = event.getCurrentItem(); // clicked slot item
         ItemStack cursor = event.getCursor();        // cursor item
-
         // Putting a cursor item onto a bundle (insert)
         if (isBundle(current) && cursor.getType() != Material.AIR) {
             event.setCancelled(true);
@@ -196,7 +185,6 @@ public final class AntiDupingListener implements Listener {
             debug("Blocked bundle insert via click (cursor -> bundle): player=" + player.getName() + ", world=" + player.getWorld().getName() + ", cursor=" + cursor.getType());
             return;
         }
-
         // Risky swap case: bundle on cursor + clicking a non-air item (could insert depending on client behavior)
         if (isBundle(cursor) && current != null && current.getType() != Material.AIR) {
             event.setCancelled(true);
@@ -209,13 +197,10 @@ public final class AntiDupingListener implements Listener {
     public void onInventoryDrag(@NonNull InventoryDragEvent event) {
         if (!(event.getWhoClicked() instanceof Player player)) return;
         if (bypass(player)) return;
-
         WorldSettings ws = settingsForWorld(player.getWorld().getName());
         if (!ws.bundles.enabled || !ws.bundles.blockInsertItems) return;
-
         ItemStack cursor = event.getOldCursor();
         if (cursor.getType() == Material.AIR) return;
-
         for (int rawSlot : event.getRawSlots()) {
             ItemStack inSlot = event.getView().getItem(rawSlot);
             if (isBundle(inSlot)) {

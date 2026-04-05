@@ -1,13 +1,14 @@
 plugins {
     id 'java'
+    id("io.github.greymagic27.McTestServer") version "1.0.0"
 }
 
 group = 'com.mrfloris'
-version = '1.1.0'
+version = '1.2.0'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(25)
     }
 }
 
@@ -17,7 +18,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:26.1.1.build.20-alpha")
     implementation("org.jspecify:jspecify:1.0.0")
 }
 
