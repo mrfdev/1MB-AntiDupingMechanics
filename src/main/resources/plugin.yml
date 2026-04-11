@@ -1,4 +1,4 @@
-name: AntiDupingMechanics
+name: 1MB-AntiDupingMechanics
 version: @version@
 main: com.mrfloris.antiduping.AntiDupingMechanics
 api-version: "26.1.2"
