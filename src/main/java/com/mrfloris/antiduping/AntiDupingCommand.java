@@ -1,8 +1,8 @@
 package com.mrfloris.antiduping;
 
+import com.mrfloris.antiduping.util.ColorUtil;
 import java.util.ArrayList;
 import java.util.List;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -19,37 +19,32 @@ public final class AntiDupingCommand implements CommandExecutor, TabCompleter {
         this.listener = listener;
     }
 
-    private String color(String s) {
-        return ChatColor.translateAlternateColorCodes('&', s);
-    }
-
     @Override
     public boolean onCommand(@NonNull CommandSender sender, @NonNull Command command, @NonNull String label, @NonNull String @NonNull [] args) {
         if (!sender.hasPermission("antiduping.admin")) {
-            sender.sendMessage(color("&cNo permission."));
+            sender.sendMessage(ColorUtil.color("&cNo permission."));
             return true;
         }
 
         if (args.length == 0) {
-            sender.sendMessage(color("&7Usage: &f/antiduping <reload|status>"));
+            sender.sendMessage(ColorUtil.color("&7Usage: &f/antiduping <reload|status>"));
             return true;
         }
 
         switch (args[0].toLowerCase()) {
             case "reload" -> {
                 plugin.reloadAll();
-                sender.sendMessage(color("&aAntiDupingMechanics reloaded."));
+                sender.sendMessage(ColorUtil.color("&aAntiDupingMechanics reloaded."));
             }
             case "status" -> {
-                sender.sendMessage(color("&6AntiDupingMechanics status:"));
-                sender.sendMessage(color("&7- Debug: &f" + listener.statusDebug()));
-                sender.sendMessage(color("&7- Worlds loaded: &f" + listener.statusWorldsLoaded()));
-                sender.sendMessage(color("&7- Bypass perm: &fantiduping.bypass"));
-                sender.sendMessage(color("&7Use /antiduping reload after config changes."));
+                sender.sendMessage(ColorUtil.color("&6AntiDupingMechanics status:"));
+                sender.sendMessage(ColorUtil.color("&7- Debug: &f" + listener.statusDebug()));
+                sender.sendMessage(ColorUtil.color("&7- Worlds loaded: &f" + listener.statusWorldsLoaded()));
+                sender.sendMessage(ColorUtil.color("&7- Bypass perm: &fantiduping.bypass"));
+                sender.sendMessage(ColorUtil.color("&7Use /antiduping reload after config changes."));
             }
-            default -> sender.sendMessage(color("&7Usage: &f/antiduping <reload|status>"));
+            default -> sender.sendMessage(ColorUtil.color("&7Usage: &f/antiduping <reload|status>"));
         }
-
         return true;
     }
 
