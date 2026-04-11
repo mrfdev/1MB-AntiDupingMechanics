@@ -1,5 +1,5 @@
 name: AntiDupingMechanics
-version: ${version}
+version: @version@
 main: com.mrfloris.antiduping.AntiDupingMechanics
 api-version: "26.1.2"
 author: Floris
