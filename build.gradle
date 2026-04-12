@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.mrfloris'
-version = '1.2.0'
+version = '26.1.2'
 
 java {
     toolchain {
@@ -20,7 +20,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:26.1.2.build.5-alpha")
+    compileOnly("io.papermc.paper:paper-api:${version}.build.5-alpha")
     implementation("org.jspecify:jspecify:1.0.0")
 }
 
@@ -34,4 +34,8 @@ processResources {
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
     options.compilerArgs += ['-Xlint:deprecation']
+}
+
+tasks.jar {
+    archiveVersion.set("${version}")
 }
