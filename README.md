@@ -49,18 +49,18 @@ worlds:
 
 ## Build
 
-Requires Java 21+.
+Requires Java 25+.
 
 ```bash
 ./gradlew build
 ```
 
-Jar will be in `build/libs/AntiDupingMechanics-1.1.0.jar`.
+Jar will be in `build/libs/AntiDupingMechanics-1.2.0.jar`.
 
 ## Notes
 
-Bundle behavior in Minecraft can vary across versions/clients. This plugin blocks the common insert methods:
+Bundle behaviour in Minecraft can vary across versions/clients. This plugin blocks the common insert methods:
 - click/drag items onto a bundle in inventories
 - certain right-click interactions involving item entities (where applicable)
 
-If you find a specific interaction path that still inserts into bundles on your server, note the exact steps and we can tighten the checks.
+If you find a specific interaction path that still inserts into bundles on your server, note the exact steps, and we can tighten the checks.

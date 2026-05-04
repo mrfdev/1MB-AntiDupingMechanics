@@ -1,13 +1,16 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
 plugins {
     id 'java'
+    id("io.github.greymagic27.McTestServer") version "1.0.0"
 }
 
 group = 'com.mrfloris'
-version = '1.1.0'
+version = '26.1.2'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(25)
     }
 }
 
@@ -17,11 +20,22 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:${version}.build.+")
     implementation("org.jspecify:jspecify:1.0.0")
+}
+
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        filter ReplaceTokens, tokens: [version: version]
+        duplicatesStrategy = DuplicatesStrategy.WARN
+    }
 }
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
     options.compilerArgs += ['-Xlint:deprecation']
+}
+
+tasks.jar {
+    archiveVersion.set("${version}")
 }

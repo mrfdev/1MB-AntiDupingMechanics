@@ -9,10 +9,8 @@ public final class AntiDupingMechanics extends JavaPlugin {
     @Override
     public void onEnable() {
         saveDefaultConfig();
-
         listener = new AntiDupingListener(this);
         getServer().getPluginManager().registerEvents(listener, this);
-
         var cmd = getCommand("antiduping");
         if (cmd != null) {
             var command = new AntiDupingCommand(this, listener);
