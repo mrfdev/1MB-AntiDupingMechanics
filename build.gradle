@@ -20,7 +20,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:${version}.build.5-alpha")
+    compileOnly("io.papermc.paper:paper-api:${version}.build.+")
     implementation("org.jspecify:jspecify:1.0.0")
 }
 
